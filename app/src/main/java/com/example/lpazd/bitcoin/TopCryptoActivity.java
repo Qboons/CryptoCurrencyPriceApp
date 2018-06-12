@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -21,16 +26,16 @@ import okhttp3.Response;
 
 public class TopCryptoActivity extends AppCompatActivity {
 
-    public static final String BPI_ENDPOINT = "https://api.coindesk.com/v1/bpi/currentprice.json";
+    public static final String BPI_ENDPOINT = "https://api.coinmarketcap.com/v2/ticker/?limit=20";
     private OkHttpClient okHttpClient = new OkHttpClient();
     private ProgressDialog progressDialog;
-    private TextView txt;
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bit_coin_acvivity);
-        txt = findViewById(R.id.txt);
+        lv = findViewById(R.id.lv);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Wait");
@@ -87,24 +92,45 @@ public class TopCryptoActivity extends AppCompatActivity {
     }
 
     private void pareeBpiResponse(String body) {
-        Log.v(TAG, body);
+//        Log.v(TAG, body);
+        List list = new ArrayList();
         try {
-            StringBuilder builder = new StringBuilder();
+
             JSONObject jsonObject = new JSONObject(body);
-            JSONObject timeObject = jsonObject.getJSONObject("time");
-            builder.append(timeObject.getString("updated")).append("\n\n");
+            JSONObject dataObject = jsonObject.getJSONObject("data");
+            Iterator<?> keys = dataObject.keys();
 
-            JSONObject bpiObject = jsonObject.getJSONObject("bpi");
-            JSONObject usdObject = bpiObject.getJSONObject("USD");
-            builder.append(usdObject.getString("rate")).append("$").append("\n");
-
-            JSONObject gbpObject = bpiObject.getJSONObject("GBP");
-            builder.append(gbpObject.getString("rate")).append("Ł").append("\n");
-
-            JSONObject eurObject = bpiObject.getJSONObject("EUR");
-            builder.append(eurObject.getString("rate")).append("E").append("\n");
-
-            txt.setText(builder.toString());
+            while (keys.hasNext()){
+                String key = (String) keys.next();
+                if(dataObject.get(key) instanceof JSONObject){
+                    StringBuilder builder = new StringBuilder();
+                    JSONObject cryptoObj = (JSONObject) dataObject.get(key);
+//                    Log.v(TAG, cryptoObj.get("name").toString());
+                    builder.append(cryptoObj.get("name"));
+                    builder.append(" ");
+                    builder.append(cryptoObj.get("symbol"));
+                    builder.append(" ");
+                    JSONObject quotes = cryptoObj.getJSONObject("quotes");
+                    JSONObject usd = quotes.getJSONObject("USD");
+                    builder.append(usd.getString("price")+ "$");
+                    list.add(builder.toString());
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,list);
+            lv.setAdapter(adapter);
+//            builder.append(timeObject.getString("updated")).append("\n\n");
+//
+//            JSONObject bpiObject = jsonObject.getJSONObject("bpi");
+//            JSONObject usdObject = bpiObject.getJSONObject("USD");
+//            builder.append(usdObject.getString("rate")).append("$").append("\n");
+//
+//            JSONObject gbpObject = bpiObject.getJSONObject("GBP");
+//            builder.append(gbpObject.getString("rate")).append("Ł").append("\n");
+//
+//            JSONObject eurObject = bpiObject.getJSONObject("EUR");
+//            builder.append(eurObject.getString("rate")).append("E").append("\n");
+//
+//            txt.setText(builder.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
