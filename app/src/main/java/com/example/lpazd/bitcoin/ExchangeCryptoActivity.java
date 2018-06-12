@@ -116,9 +116,8 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        if (!et.getText().toString().matches("")){
-
-                            list.add(jsonToString(response.body().string(), seletedItem, et.getText().toString()));
+                        if ((!et.getText().toString().matches("")) && (et.getText().toString().matches("[+-]?([0-9]*[.])?[0-9]+"))){
+                            list.add(jsonToString(response.body().string(), seletedItem, Double.parseDouble(et.getText().toString())));
                         }
                     }
                 });
@@ -128,19 +127,18 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
-    private String jsonToString(String body,String selectedItem,String amount) {
-        Log.v(TAG, amount);
+    private String jsonToString(String body,String selectedItem,Double amount) {
+
         StringBuilder builder = new StringBuilder();
         double price;
-        double am = Double.parseDouble(amount);
         try {
             JSONObject jsonObject = new JSONObject(body);
             JSONObject dataObj = jsonObject.getJSONObject("data");
 //            builder.append(dataObj.getString("name"));
             JSONObject quotesObj = dataObj.getJSONObject("quotes");
             JSONObject cryptoObj = quotesObj.getJSONObject(selectedItem);
-           if(am != 0){
-                   price = am / cryptoObj.getDouble( "price");
+           if(amount != 0){
+                   price = amount / cryptoObj.getDouble( "price");
            }else {
                price = 0 ;
            }
