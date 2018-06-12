@@ -60,7 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/btn2"
-        android:onClick="goToBit"
+        android:onClick="goToConverter"
         android:text="Crypto converter"
         app:layout_constraintBottom_toTopOf="@+id/btn4"
         app:layout_constraintEnd_toEndOf="parent"

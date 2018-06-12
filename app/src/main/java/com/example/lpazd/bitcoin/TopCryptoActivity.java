@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class BitCoinActivity extends AppCompatActivity {
+public class TopCryptoActivity extends AppCompatActivity {
 
     public static final String BPI_ENDPOINT = "https://api.coindesk.com/v1/bpi/currentprice.json";
     private OkHttpClient okHttpClient = new OkHttpClient();
@@ -39,18 +39,25 @@ public class BitCoinActivity extends AppCompatActivity {
     private static final String TAG = "***MainActivity***";
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.action_load) {
+//            load();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_load) {
-            load();
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onStart() {
+        super.onStart();
+        load();
     }
 
     private void load() {
@@ -60,7 +67,7 @@ public class BitCoinActivity extends AppCompatActivity {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(BitCoinActivity.this, "Error during loading data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TopCryptoActivity.this, "Error during loading data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -23,7 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToBit(View view) {
-        Intent intent = new Intent(MainActivity.this, BitCoinActivity.class);
+        Intent intent = new Intent(MainActivity.this, TopCryptoActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToConverter(View view) {
+        Intent intent = new Intent(MainActivity.this, ExchangeCryptoActivity.class);
         startActivity(intent);
     }
 }

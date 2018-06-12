@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bitcoin</string>
+    <string name="title_activity_wallet">WalletActivity</string>
+    <string name="title_activity_my_wallet">MyWalletActivity</string>
 </resources>
