@@ -43,7 +43,7 @@
         android:layout_below="@+id/btn2"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="8dp"
-        android:onClick="goToBit"
+        android:onClick="goToWallet"
         android:text="Crypto wallet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn2"

@@ -18,12 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TopCryptoActivity" />
+        <activity android:name=".TopCryptoActivity"
+            android:label="@string/title_top_crypto"
+            />
+
         <activity
             android:name=".MyWalletActivity"
             android:label="@string/title_activity_my_wallet"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ExchangeCryptoActivity"></activity>
+        <activity android:name=".ExchangeCryptoActivity"
+            android:label="@string/title_exchange"
+            />
+        <activity android:name=".CryptoActivity"
+            android:label="@string/title_add_crypto"
+            />
     </application>
 
 </manifest>

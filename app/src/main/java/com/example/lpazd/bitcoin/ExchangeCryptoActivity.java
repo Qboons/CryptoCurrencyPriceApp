@@ -48,6 +48,7 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         put(1765, "EOS");
         put(2, "LTC");
     }};
+    private Double dollarPrice;
 
 
     @Override
@@ -73,13 +74,12 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selectedItem = spinner.getSelectedItem().toString();
-                showPrices(selectedItem);
+                showPrices(spinner.getSelectedItem().toString());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+                showPrices(spinner.getSelectedItem().toString());
             }
 
         });
@@ -137,6 +137,8 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
 //            builder.append(dataObj.getString("name"));
             JSONObject quotesObj = dataObj.getJSONObject("quotes");
             JSONObject cryptoObj = quotesObj.getJSONObject(selectedItem);
+
+
            if(amount != 0){
                    price = amount / cryptoObj.getDouble( "price");
            }else {

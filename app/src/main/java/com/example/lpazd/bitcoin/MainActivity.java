@@ -31,4 +31,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ExchangeCryptoActivity.class);
         startActivity(intent);
     }
+
+    public void goToWallet(View view) {
+        Intent intent = new Intent(MainActivity.this, MyWalletActivity.class);
+        startActivity(intent);
+    }
 }

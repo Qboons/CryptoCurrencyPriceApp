@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Bitcoin</string>
+    <string name="app_name">Crypto Currency App</string>
     <string name="title_activity_wallet">WalletActivity</string>
-    <string name="title_activity_my_wallet">MyWalletActivity</string>
+    <string name="title_activity_my_wallet">My Wallet</string>
+    <string name="title_add_crypto">Add</string>
+    <string name="title_top_crypto">Cryptocurrency</string>
+    <string name="title_exchange">Exchange</string>
+    <string name="textview">TextView</string>
 </resources>
