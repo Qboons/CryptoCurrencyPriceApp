@@ -54,7 +54,7 @@ public class Database extends SQLiteOpenHelper {
 
                 }
             return true;
-        }else {
+        }else if(amount > 0){
             contentValues.put(COL_2, crypto);
             contentValues.put(COL_3, amount);
             long result = db.insert(TABLE_NAME, null, contentValues);
@@ -64,6 +64,7 @@ public class Database extends SQLiteOpenHelper {
                 return true;
             }
         }
+        return false;
     }
 
 
