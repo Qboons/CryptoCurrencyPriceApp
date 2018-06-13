@@ -31,7 +31,8 @@
         <activity
             android:name=".CryptoActivity"
             android:label="@string/title_add_crypto" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity"
+            android:label="@string/title_about"/>
     </application>
 
 </manifest>
