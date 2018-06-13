@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1ABC9C"
     tools:context=".MainActivity">
 
     <Button
@@ -14,6 +15,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/btn"
+        android:background="#16A085"
         android:onClick="goToBit"
         android:text="About Us"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,6 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="#1ABC9C"
         android:src="@drawable/bitcoin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +46,7 @@
         android:layout_below="@+id/btn2"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="8dp"
+        android:background="#16A085"
         android:onClick="goToWallet"
         android:text="Crypto wallet"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,6 +64,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/btn2"
+        android:background="#16A085"
         android:onClick="goToConverter"
         android:text="Crypto converter"
         app:layout_constraintBottom_toTopOf="@+id/btn4"
@@ -77,6 +82,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="#16A085"
         android:onClick="goToBit"
         android:text="Crypto pricing"
         app:layout_constraintBottom_toTopOf="@+id/btn"

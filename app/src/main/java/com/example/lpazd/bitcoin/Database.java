@@ -42,15 +42,19 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * FROM wallet_table WHERE CRYPTO = ?",new String[]{crypto});
 
 
-        if (cursor != null){
-            Log.v("hehe", "hahah");
+        if ((cursor != null) &&  (cursor.getCount() > 0)){
                 while (cursor.moveToNext()){
                     String id = String.valueOf(cursor.getInt(0));
-                    updateData(id,amount);
+
+                    if(amount > 0.0){
+                        updateData(id,amount);
+                    }else {
+                        deleteData(id);
+                    }
+
                 }
             return true;
         }else {
-            Log.v("hehe2", "hahah2");
             contentValues.put(COL_2, crypto);
             contentValues.put(COL_3, amount);
             long result = db.insert(TABLE_NAME, null, contentValues);
@@ -77,5 +81,11 @@ public class Database extends SQLiteOpenHelper {
         db.update(TABLE_NAME, contentValues,"ID = ?", new String[]{id});
         return true;
     }
+    public Integer deleteData(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "ID = ?",new String[]{id});
+    }
+
+
 
 }

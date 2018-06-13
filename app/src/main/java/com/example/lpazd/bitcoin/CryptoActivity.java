@@ -42,12 +42,10 @@ public class CryptoActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-
-
     public void addData(View view) {
         String currency = spinner.getSelectedItem().toString();
         Double amount = Double.parseDouble(et.getText().toString());
-        if(amount > 0){
+        if(amount >= 0){
             db.insertData(currency,amount);
         }
 

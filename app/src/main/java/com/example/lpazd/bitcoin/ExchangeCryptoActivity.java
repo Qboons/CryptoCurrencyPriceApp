@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,8 +49,6 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         put(1765, "EOS");
         put(2, "LTC");
     }};
-    private Double dollarPrice;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,19 +70,6 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, currencies);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                showPrices(spinner.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                showPrices(spinner.getSelectedItem().toString());
-            }
-
-        });
-
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,6 +84,13 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 showPrices(spinner.getSelectedItem().toString());
+            }
+        });
+        et.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                showPrices(spinner.getSelectedItem().toString());
+                return false;
             }
         });
     }
@@ -115,10 +108,20 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        if ((!et.getText().toString().matches("")) && (et.getText().toString().matches("[+-]?([0-9]*[.])?[0-9]+"))){
-                            list.add(jsonToString(response.body().string(), seletedItem, Double.parseDouble(et.getText().toString())));
-                        }
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if ((!et.getText().toString().matches("")) && (et.getText().toString().matches("[+-]?([0-9]*[.])?[0-9]+"))){
+                                    try {
+                                        list.add(jsonToString(response.body().string(), seletedItem, Double.parseDouble(et.getText().toString())));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 });
             }
@@ -152,4 +155,6 @@ public class ExchangeCryptoActivity extends AppCompatActivity {
         }
         return builder.toString();
     }
+
+
 }
